@@ -23,7 +23,7 @@ class Vector2:
             self.x = x
             self.y = y
 
-    def apply_func(self, func):
+    def apply_func(self, func): # apply a function in elements of the vector
         for i, v in enumerate(self):
             self[i] = func(v)
 
@@ -124,7 +124,7 @@ class Vector3:
             self.y = y
             self.z = z
 
-    def apply_func(self, func):
+    def apply_func(self, func): # apply a function in elements of the vector
         for i, v in enumerate(self):
             self[i] = func(v)
 
