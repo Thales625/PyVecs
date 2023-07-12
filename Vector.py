@@ -113,7 +113,7 @@ class Vector2:
         return None
     
     def get_angle(self):
-        return tan(self.x / self.y)
+        return tan(self.x / (self.y + 1e-16))
 
 
 class Vector3:
