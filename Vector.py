@@ -1,4 +1,4 @@
-from math import sqrt, sin, cos, tan
+from math import sqrt, sin, cos, atan2
 
 
 def is_scalar(other):
@@ -113,7 +113,7 @@ class Vector2:
         return None
     
     def get_angle(self):
-        return tan(self.x / (self.y + 1e-16))
+        return atan2(self.y, self.x)
 
 
 class Vector3:
