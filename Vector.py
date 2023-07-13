@@ -12,20 +12,25 @@ def is_vector3(other):
 
 
 class Vector2:
-    def __init__(self, x=0, y=0, thetta=None) -> None:
+    def __init__(self, x_or_list=0, y=0, thetta=None) -> None:
         if thetta is not None:
             self.x = cos(thetta)
             self.y = sin(thetta)
-        elif not is_scalar(x):
-            self.x = x[0]
-            self.y = x[1]
+        elif not is_scalar(x_or_list):
+            self.x = x_or_list[0]
+            self.y = x_or_list[1]
         else:
-            self.x = x
+            self.x = x_or_list
             self.y = y
 
+    def copy(self): # return a copy of the self vector
+        return Vector2(self.x, self.y)
+
     def apply_func(self, func): # apply a function in elements of the vector
-        for i, v in enumerate(self):
-            self[i] = func(v)
+        v_copy = self.copy()
+        for i, v in enumerate(v_copy):
+            v_copy[i] = func(v)
+        return v_copy
 
     def __iter__(self):
         yield self.x
@@ -117,19 +122,24 @@ class Vector2:
 
 
 class Vector3:
-    def __init__(self, x=0, y=0, z=0) -> None:
-        if not is_scalar(x):
-            self.x = x[0]
-            self.y = x[1]
-            self.z = x[2]
+    def __init__(self, x_or_list=0, y=0, z=0) -> None:
+        if not is_scalar(x_or_list) and len(x_or_list) >= 3:
+            self.x = x_or_list[0]
+            self.y = x_or_list[1]
+            self.z = x_or_list[2]
         else:
-            self.x = x
+            self.x = x_or_list
             self.y = y
             self.z = z
 
+    def copy(self):
+        return Vector3(self.x, self.y, self.z)
+
     def apply_func(self, func): # apply a function in elements of the vector
-        for i, v in enumerate(self):
-            self[i] = func(v)
+        v_copy = self.copy()
+        for i, v in enumerate(v_copy):
+            v_copy[i] = func(v)
+        return v_copy
 
     def __iter__(self):
         yield self.x
