@@ -106,18 +106,18 @@ class Vector2:
             return self.x * other.y - self.y * other.x
         return None
     
-    def magnitude(self):
+    def magnitude(self): # magnitude of Vector2
         return sqrt(self.x*self.x + self.y*self.y)
     
-    def normalize(self):
+    def normalize(self): # normalized of Vector2
         return self / self.magnitude()
     
-    def distance(self, other):
+    def distance(self, other): # distance between two Vector2
         if is_vector2(other):
             return (self - other).magnitude()
         return None
     
-    def get_angle(self):
+    def get_angle(self): # angle with Vector2(1, 0)
         return atan2(self.y, self.x)
 
 
@@ -132,7 +132,7 @@ class Vector3:
             self.y = y
             self.z = z
 
-    def copy(self):
+    def copy(self): # return a copy of the self vector
         return Vector3(self.x, self.y, self.z)
 
     def apply_func(self, func): # apply a function in elements of the vector
@@ -227,13 +227,13 @@ class Vector3:
             return Vector3(self.y * other.z - self.z * other.y, self.z * other.x - self.x * other.z, self.x * other.y - self.y * other.x)
         return None
     
-    def magnitude(self):
+    def magnitude(self): # magnitude of Vector3
         return sqrt(self.x*self.x + self.y*self.y + self.z*self.z)
     
-    def normalize(self):
+    def normalize(self): # normalized of Vector3
         return self / self.magnitude()
     
-    def distance(self, other):
+    def distance(self, other): # distance between two Vector3
         if is_vector3(other):
             return (self - other).magnitude()
         return None
