@@ -110,7 +110,9 @@ class Vector2:
         return sqrt(self.x*self.x + self.y*self.y)
     
     def normalize(self): # normalized of Vector2
-        return self / self.magnitude()
+        mag = self.magnitude()
+        if mag == 0: return Vector2()
+        return self / mag
     
     def distance(self, other): # distance between two Vector2
         if is_vector2(other):
@@ -231,7 +233,9 @@ class Vector3:
         return sqrt(self.x*self.x + self.y*self.y + self.z*self.z)
     
     def normalize(self): # normalized of Vector3
-        return self / self.magnitude()
+        mag = self.magnitude()
+        if mag == 0: return Vector3()
+        return self / mag
     
     def distance(self, other): # distance between two Vector3
         if is_vector3(other):
