@@ -47,6 +47,9 @@ class Vector2:
             self.y = value
         return
     
+    def __len__(self):
+        return 2
+    
     def __neg__(self): # -Vector2
         return self.__mul__(-1)
     
@@ -161,6 +164,9 @@ class Vector3:
         if index == 2:
             self.z = value
         return
+    
+    def __len__(self):
+        return 3
     
     def __neg__(self): # -Vector3
         return self.__mul__(-1)
