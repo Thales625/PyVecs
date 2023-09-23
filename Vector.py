@@ -61,10 +61,22 @@ class Vector2:
             return Vector2(self.x + other.x, self.y + other.y)
         return None
     
+    def __iadd__(self, other): # self += other
+        if is_vector2(other):
+            self.x += other.x
+            self.y += other.y
+        return self
+
     def __sub__(self, other): # Vector2 - Vector2
         if is_vector2(other):
             return self.__add__(-other)
         return None
+    
+    def __isub__(self, other): # self -= other
+        if is_vector2(other):
+            self.x -= other.x
+            self.y -= other.y
+        return self
     
     def __mul__(self, other): # Vector2 * Vector2 | Vector2 * Scalar
         if is_scalar(other):
@@ -78,6 +90,15 @@ class Vector2:
         else:
             return Vector2(self.x * other.x, self.y * other.y)
         
+    def __imul__(self, other): # self *= other
+        if is_scalar(other):
+            self.x *= other
+            self.y *= other
+        else:
+            self.x *= other.x
+            self.y *= other.y
+        return self
+    
     def __truediv__(self, other): # Vector2 / Vector2 | Vector2 / Scalar
         if is_scalar(other):
             return Vector2(self.x / other, self.y / other)
@@ -94,6 +115,9 @@ class Vector2:
         if is_scalar(other):
             return Vector2(self.x ** other, self.y ** other)
         return None
+    
+    def __str__(self):
+        return f"X: {self.x} Y: {self.y}"
     
     def rotate(self, thetta): # Rotate
         s, c = sin(thetta), cos(thetta)
@@ -179,10 +203,24 @@ class Vector3:
             return Vector3(self.x + other.x, self.y + other.y, self.z + other.z)
         return None
     
+    def __iadd__(self, other): # self += other
+        if is_vector3(other):
+            self.x += other.x
+            self.y += other.y
+            self.z += other.z
+        return self
+    
     def __sub__(self, other): # Vector3 - Vector3
         if is_vector3(other):
             return self.__add__(-other)
         return None
+    
+    def __isub__(self, other): # self -= other
+        if is_vector3(other):
+            self.x -= other.x
+            self.y -= other.y
+            self.z -= other.z
+        return self
     
     def __mul__(self, other): # Vector3 * Vector3 | Vector3 * Scalar
         if is_scalar(other):
@@ -196,6 +234,17 @@ class Vector3:
         else:
             return Vector3(self.x * other.x, self.y * other.y, self.z * other)
         
+    def __imul__(self, other): # self *= other
+        if is_scalar(other):
+            self.x *= other
+            self.y *= other
+            self.z *= other
+        elif is_vector3(other):
+            self.x *= other.x
+            self.y *= other.y
+            self.z *= other.z
+        return self
+
     def __truediv__(self, other): # Vector3 / Vector3 | Vector3 / Scalar
         if is_scalar(other):
             return Vector3(self.x / other, self.y / other, self.z / other)
@@ -212,6 +261,9 @@ class Vector3:
         if is_scalar(other):
             return Vector3(self.x ** other, self.y ** other, self.z ** other)
         return None
+    
+    def __str__(self):
+        return f"X: {self.x} Y: {self.y} Z: {self.z}"
     
     def rotateX(self, thetta): # Rotate in X axis
         c, s = cos(thetta), sin(thetta)
