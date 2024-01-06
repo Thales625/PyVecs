@@ -1,4 +1,4 @@
-from math import sqrt, sin, cos, atan2
+from math import sqrt, sin, cos, atan2, acos
 
 
 def is_scalar(other):
@@ -10,6 +10,16 @@ def is_vector2(other):
 def is_vector3(other):
     return type(other) is Vector3
 
+def angle_between_vectors(v, u) -> float:
+    """
+    return: angle between two vectors (2D or 3D) in rad.
+    """
+    dp = v.dot(u)
+
+    if dp == 0:
+        return 0
+
+    return acos(dp / (v.magnitude() * u.magnitude()))
 
 class Vector2:
     def __init__(self, x_or_list=0, y=0, thetta=None) -> None:
@@ -23,10 +33,16 @@ class Vector2:
             self.x = x_or_list
             self.y = y
 
-    def copy(self): # return a copy of the self vector
+    def copy(self):
+        """
+        return: a copy of the current vector.
+        """
         return Vector2(self.x, self.y)
 
-    def apply_func(self, func): # apply a function in elements of the vector
+    def apply_func(self, func):
+        """
+        return: a copy of the vector with a specified function applied to each element.
+        """
         v_copy = self.copy()
         for i, v in enumerate(v_copy):
             v_copy[i] = func(v)
@@ -119,36 +135,38 @@ class Vector2:
     def __str__(self):
         return f"X: {self.x} Y: {self.y}"
     
-    def rotate(self, thetta): # Rotate
-        s, c = sin(thetta), cos(thetta)
+    def rotate(self, theta) -> 'Vector2': # Rotate
+        """
+        return: a copy of the vector rotated by the specified angle.
+        """
+        s, c = sin(theta), cos(theta)
         return Vector2(self.x * c - self.y * s, self.x * s + self.y * c)
     
-    def dot(self, other): # Dot Product <Scalar>
+    def dot(self, other) -> float: # Dot Product <Scalar>
         if is_vector2(other):
             return self.x * other.x + self.y * other.y
         return None
     
-    def cross(self, other): # Cross Product <Scalar>
+    def cross(self, other) -> 'Vector2': # Cross Product <Scalar>
         if is_vector2(other):
             return self.x * other.y - self.y * other.x
         return None
     
-    def magnitude(self): # magnitude of Vector2
+    def magnitude(self) -> float:
         return sqrt(self.x*self.x + self.y*self.y)
     
-    def normalize(self): # normalized of Vector2
+    def normalize(self) -> 'Vector2': # normalized of Vector2
         mag = self.magnitude()
         if mag == 0: return Vector2()
         return self / mag
     
-    def distance(self, other): # distance between two Vector2
+    def distance(self, other) -> float:
         if is_vector2(other):
             return (self - other).magnitude()
         return None
     
-    def get_angle(self): # angle with Vector2(1, 0)
+    def get_angle(self) -> float: # angle with Vector2(1, 0)
         return atan2(self.y, self.x)
-
 
 class Vector3:
     def __init__(self, x_or_list=0, y=0, z=0) -> None:
@@ -161,10 +179,16 @@ class Vector3:
             self.y = y
             self.z = z
 
-    def copy(self): # return a copy of the self vector
+    def copy(self) -> 'Vector3':
+        """
+        return: a copy of the current vector.
+        """
         return Vector3(self.x, self.y, self.z)
 
-    def apply_func(self, func): # apply a function in elements of the vector
+    def apply_func(self, func):
+        """
+        return: a copy of the vector with a specified function applied to each element.
+        """
         v_copy = self.copy()
         for i, v in enumerate(v_copy):
             v_copy[i] = func(v)
@@ -265,37 +289,46 @@ class Vector3:
     def __str__(self):
         return f"X: {self.x} Y: {self.y} Z: {self.z}"
     
-    def rotateX(self, thetta): # Rotate in X axis
+    def rotateX(self, thetta) -> 'Vector3':
+        """
+        return: a copy of the vector rotated around the x-axis by the specified angle.
+        """
         c, s = cos(thetta), sin(thetta)
         return Vector3(self.x, self.y * c + self.z * s, self.z * c - self.y * s)
 
-    def rotateY(self, thetta): # Rotate in Y axis
+    def rotateY(self, thetta) -> 'Vector3':
+        """
+        return: a copy of the vector rotated around y-axis by the specified angle.
+        """
         c, s = cos(thetta), sin(thetta)
         return Vector3(self.x * c + self.z * s, self.y, self.z * c - self.x * s)
     
-    def rotateZ(self, thetta): # Rotate in Z axis
+    def rotateZ(self, thetta) -> 'Vector3':
+        """
+        return: a copy of the vector rotated around z-axis by the specified angle.
+        """
         c, s = cos(thetta), sin(thetta)
         return Vector3(self.x * c - self.y * s, self.x * s + self.y * c, self.z)
     
-    def dot(self, other): # Dot Product <Scalar>
+    def dot(self, other) -> float: # Dot Product <Scalar>
         if is_vector3(other):
             return self.x * other.x + self.y * other.y + self.z * other.z
         return None
     
-    def cross(self, other): # Cross Product <Vector3>
+    def cross(self, other) -> 'Vector3': # Cross Product <Vector3>
         if is_vector3(other):
             return Vector3(self.y * other.z - self.z * other.y, self.z * other.x - self.x * other.z, self.x * other.y - self.y * other.x)
         return None
     
-    def magnitude(self): # magnitude of Vector3
+    def magnitude(self) -> float: # magnitude of Vector3
         return sqrt(self.x*self.x + self.y*self.y + self.z*self.z)
     
-    def normalize(self): # normalized of Vector3
+    def normalize(self) -> 'Vector3': # normalized of Vector3
         mag = self.magnitude()
         if mag == 0: return Vector3()
         return self / mag
     
-    def distance(self, other): # distance between two Vector3
+    def distance(self, other) -> float:
         if is_vector3(other):
             return (self - other).magnitude()
         return None
