@@ -22,10 +22,10 @@ def angle_between_vectors(v, u) -> float:
     return acos(dp / (v.magnitude() * u.magnitude()))
 
 class Vector2:
-    def __init__(self, x_or_list=0, y=0, thetta=None) -> None:
-        if thetta is not None:
-            self.x = cos(thetta)
-            self.y = sin(thetta)
+    def __init__(self, x_or_list=0, y=0, theta=None) -> None:
+        if theta is not None:
+            self.x = cos(theta)
+            self.y = sin(theta)
         elif not is_scalar(x_or_list):
             self.x = x_or_list[0]
             self.y = x_or_list[1]
@@ -289,25 +289,25 @@ class Vector3:
     def __str__(self):
         return f"X: {self.x} Y: {self.y} Z: {self.z}"
     
-    def rotateX(self, thetta) -> 'Vector3':
+    def rotateX(self, theta) -> 'Vector3':
         """
         return: a copy of the vector rotated around the x-axis by the specified angle.
         """
-        c, s = cos(thetta), sin(thetta)
+        c, s = cos(theta), sin(theta)
         return Vector3(self.x, self.y * c + self.z * s, self.z * c - self.y * s)
 
-    def rotateY(self, thetta) -> 'Vector3':
+    def rotateY(self, theta) -> 'Vector3':
         """
         return: a copy of the vector rotated around y-axis by the specified angle.
         """
-        c, s = cos(thetta), sin(thetta)
+        c, s = cos(theta), sin(theta)
         return Vector3(self.x * c + self.z * s, self.y, self.z * c - self.x * s)
     
-    def rotateZ(self, thetta) -> 'Vector3':
+    def rotateZ(self, theta) -> 'Vector3':
         """
         return: a copy of the vector rotated around z-axis by the specified angle.
         """
-        c, s = cos(thetta), sin(thetta)
+        c, s = cos(theta), sin(theta)
         return Vector3(self.x * c - self.y * s, self.x * s + self.y * c, self.z)
     
     def dot(self, other) -> float: # Dot Product <Scalar>
