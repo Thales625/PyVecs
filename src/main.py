@@ -1,6 +1,5 @@
 from math import sqrt, sin, cos, atan2, acos
 
-
 def is_scalar(other):
     return type(other) in [int, float]
 
