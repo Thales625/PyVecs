@@ -1,1 +1,1 @@
-from .main import *
+from .main import Vector2, Vector3, is_scalar, is_vector2, is_vector3, angle_between_vectors
