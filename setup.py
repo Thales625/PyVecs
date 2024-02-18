@@ -22,5 +22,5 @@ setup(
         "Programming Language :: Python :: 3.11",
         "Topic :: Utilities"
     ],
-    python_requires=">=3.10,<3.12"
+    python_requires=">=3.10,<=3.12"
 )
