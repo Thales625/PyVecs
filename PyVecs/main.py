@@ -133,6 +133,13 @@ class Vector2:
     
     def __str__(self):
         return f"X: {self.x} Y: {self.y}"
+
+    def clamp(self, _min, _max):
+        if self.x > _max: self.x = _max
+        if self.y > _max: self.y = _max
+
+        if self.x < _min: self.x = _min
+        if self.y < _min: self.y = _min
     
     def rotate(self, theta) -> 'Vector2': # Rotate
         """
@@ -287,6 +294,15 @@ class Vector3:
     
     def __str__(self):
         return f"X: {self.x} Y: {self.y} Z: {self.z}"
+    
+    def clamp(self, _min, _max):
+        if self.x > _max: self.x = _max
+        if self.y > _max: self.y = _max
+        if self.z > _max: self.z = _max
+
+        if self.x < _min: self.x = _min
+        if self.y < _min: self.y = _min
+        if self.z < _min: self.z = _min
     
     def rotateX(self, theta) -> 'Vector3':
         """

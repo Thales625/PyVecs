@@ -4,7 +4,7 @@ from pathlib import Path
 
 setup(
     name="PyVecs",
-    version="0.0.5",
+    version="0.0.6",
     author="Thales Rodrigues",
     author_email="thaleshend@gmail.com",
     description="A simple 2D and 3D Vector class to Python.",
