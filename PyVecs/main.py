@@ -1,7 +1,8 @@
 from math import sqrt, sin, cos, atan2, acos
+from numpy import float64, ndarray
 
 def is_scalar(other):
-    return type(other) in [int, float]
+    return type(other) in [int, float, float64]
 
 def is_vector2(other):
     return type(other) is Vector2
@@ -18,7 +19,10 @@ def angle_between_vectors(v, u) -> float:
     if dp == 0:
         return 0
 
-    return acos(dp / (v.magnitude() * u.magnitude()))
+    mag_product = v.magnitude() * u.magnitude()
+    cos_theta = max(-1, min(1, dp / mag_product)) if mag_product != 0 else 0
+
+    return acos(cos_theta)
 
 class Vector2:
     def __init__(self, x_or_list=0, y=0, theta=None) -> None:
@@ -175,7 +179,7 @@ class Vector2:
         return atan2(self.y, self.x)
 
 class Vector3:
-    def __init__(self, x_or_list=0, y=0, z=0) -> None:
+    def __init__(self, x_or_list=0.0, y=0.0, z=0.0) -> None:
         if not is_scalar(x_or_list) and len(x_or_list) >= 3:
             self.x = x_or_list[0]
             self.y = x_or_list[1]
@@ -223,7 +227,8 @@ class Vector3:
         return 3
     
     def __neg__(self): # -Vector3
-        return self.__mul__(-1)
+        # return self.__mul__(-1)
+        return Vector3(-self.x, -self.y, -self.z)
     
     def __pos__(self): # +Vector3
         return self
@@ -231,6 +236,10 @@ class Vector3:
     def __add__(self, other): # Vector3 + Vector3
         if is_vector3(other):
             return Vector3(self.x + other.x, self.y + other.y, self.z + other.z)
+
+        if isinstance(other, ndarray):
+            return Vector3(self.x + other[0], self.y + other[1], self.z + other[2])
+
         return None
     
     def __iadd__(self, other): # self += other
@@ -238,11 +247,17 @@ class Vector3:
             self.x += other.x
             self.y += other.y
             self.z += other.z
-        return self
+            return self
+        if isinstance(other, ndarray):
+            self.x += other[0]
+            self.y += other[1]
+            self.z += other[2]
+            return self
+        return self # error
     
     def __sub__(self, other): # Vector3 - Vector3
         if is_vector3(other):
-            return self.__add__(-other)
+            return self.__add__(other.__neg__())
         return None
     
     def __isub__(self, other): # self -= other
@@ -253,10 +268,10 @@ class Vector3:
         return self
     
     def __mul__(self, other): # Vector3 * Vector3 | Vector3 * Scalar
-        if is_scalar(other):
-            return Vector3(self.x * other, self.y * other, self.z * other)
-        else:
+        if is_vector3(other):
             return Vector3(self.x * other.x, self.y * other.y, self.z * other.z)
+        else:
+            return Vector3(self.x * other, self.y * other, self.z * other)
 
     def __rmul__(self, other): # Vector3 * Vector3 | Scalar * Vector3
         if is_scalar(other):
@@ -293,7 +308,10 @@ class Vector3:
         return None
     
     def __str__(self):
-        return f"X: {self.x} Y: {self.y} Z: {self.z}"
+        return f"({self.x}, {self.y}, {self.z})"
+
+    def __format__(self, format_spec):
+        return f"({format(self.x, format_spec)}, {format(self.y, format_spec)}, {format(self.z, format_spec)})"
     
     def clamp(self, _min, _max):
         if self.x > _max: self.x = _max
